@@ -1,29 +1,26 @@
 <script setup>
 import { ref } from "vue";
-import { register } from "@/services/authService";
+import { login } from "@/services/authService";
 
-const name = ref("");
 const email = ref("");
 const password = ref("");
 const message = ref("");
 const loading = ref(false);
 
-const handleRegister = async () => {
+const handleLogin = async () => {
     message.value = "";
     loading.value = true;
 
     try {
-        const response = await register({
-            name: name.value,
+        const response = await login({
             email: email.value,
             password: password.value,
         });
-
         console.log(response);
-        message.value = "✅ Registration successful!";
+        message.value = "✅ Login successful!";
     } catch (error) {
         console.log(error);
-        message.value = "❌ Registration failed! Check your details.";
+        message.value = "❌ Login failed! Check your credentials.";
     } finally {
         loading.value = false;
     }
@@ -33,54 +30,42 @@ const handleRegister = async () => {
 <template>
     <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
         <div class="card shadow-lg p-4" style="width: 400px">
-            <h2 class="text-center text-success">Register</h2>
+            <h2 class="text-center text-success">{{ $t('login.login') }}</h2>
             <p v-if="message" class="text-center mt-2" :class="message.includes('✅') ? 'text-success' : 'text-danger'">
                 {{ message }}
             </p>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Name</label>
-                <input
-                    id="name"
-                    v-model="name"
-                    type="text"
-                    class="form-control"
-                    placeholder="Enter your name"
-                    required
-                />
-            </div>
-
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label">{{ $t('login.email') }}</label>
                 <input
                     id="email"
                     v-model="email"
                     type="email"
                     class="form-control"
-                    placeholder="Enter your email"
+                    :placeholder="$t('login.email_placeholder')"
                     required
                 />
             </div>
 
             <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label">{{ $t('login.password') }}</label>
                 <input
                     id="password"
                     v-model="password"
                     type="password"
                     class="form-control"
-                    placeholder="Enter your password"
+                    :placeholder="$t('login.password_placeholder')"
                     required
                 />
             </div>
 
             <button
-                @click="handleRegister"
+                @click="handleLogin"
                 class="btn btn-success w-100"
                 :disabled="loading"
             >
                 <span v-if="loading" class="spinner-border spinner-border-sm"></span>
-                Register
+                {{ $t('login.login') }}
             </button>
         </div>
     </div>

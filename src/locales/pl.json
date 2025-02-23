@@ -1,7 +1,21 @@
 {
     "welcome": "Witaj w Flashcard!",
-    "login": "Zaloguj się",
-    "register": "Zarejestruj się",
     "home": "Strona główna",
-    "language": "Język"
+    "language": "Język",
+    "login": {
+        "login": "Zaloguj się",
+        "email": "Email",
+        "password": "Hasło",
+        "email_placeholder": "Podaj adres email",
+        "password_placeholder": "Podaj hasło"
+    },
+    "register": {
+        "register": "Zarejestruj się",
+        "name": "Nazwa użytkownika",
+        "email": "Email",
+        "password": "Password",
+        "name_placeholder": "Podaj nazwę użytkownika",
+        "email_placeholder": "Podaj adres email",
+        "password_placeholder": "Podaj hasło"
+    }
 }
