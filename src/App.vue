@@ -45,9 +45,6 @@ const setLanguage = (lang) => {
                         <router-link to="/" class="nav-link" :class="{ active: route.path === '/' }">{{ $t("home") }}</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/the-welcome" class="nav-link" :class="{ active: route.path === '/the-welcome' }">Welcome</router-link>
-                    </li>
-                    <li class="nav-item">
                         <router-link to="/login" class="nav-link" :class="{ active: route.path === '/login' }">{{ $t("login") }}</router-link>
                     </li>
                     <li class="nav-item">
