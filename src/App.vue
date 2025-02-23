@@ -1,7 +1,25 @@
 <script setup>
 import { useRoute } from "vue-router";
+import { useI18n } from "vue-i18n";
+import {computed} from "vue";
 
 const route = useRoute();
+
+const languageMap = {
+    pl: { name: "Polski", flag: "https://flagcdn.com/w40/pl.png" },
+    en: { name: "English", flag: "https://flagcdn.com/w40/gb.png" }
+};
+
+const currentLanguage = computed(() => languageMap[locale.value].name);
+const flag = computed(() => languageMap[locale.value].flag);
+
+const { locale } = useI18n();
+
+const setLanguage = (lang) => {
+    locale.value = lang;
+    localStorage.setItem("appLanguage", lang);
+};
+
 </script>
 
 <template>
@@ -24,16 +42,33 @@ const route = useRoute();
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <router-link to="/" class="nav-link" :class="{ active: route.path === '/' }">Home</router-link>
+                        <router-link to="/" class="nav-link" :class="{ active: route.path === '/' }">{{ $t("home") }}</router-link>
                     </li>
                     <li class="nav-item">
                         <router-link to="/the-welcome" class="nav-link" :class="{ active: route.path === '/the-welcome' }">Welcome</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/login" class="nav-link" :class="{ active: route.path === '/login' }">Login</router-link>
+                        <router-link to="/login" class="nav-link" :class="{ active: route.path === '/login' }">{{ $t("login") }}</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/register" class="nav-link" :class="{ active: route.path === '/register' }">Register</router-link>
+                        <router-link to="/register" class="nav-link" :class="{ active: route.path === '/register' }">{{ $t("register") }}</router-link>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
+                            <img :src="flag" class="flag-icon" alt="flag" /> {{ currentLanguage }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item" href="#" @click.prevent="setLanguage('pl')">
+                                    🇵🇱 Polski
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#" @click.prevent="setLanguage('en')">
+                                    🇬🇧 English
+                                </a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>
@@ -54,5 +89,11 @@ const route = useRoute();
 .nav-link.active {
     font-weight: bold;
     text-decoration: underline;
+}
+
+.flag-icon {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
 }
 </style>
