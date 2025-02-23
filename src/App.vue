@@ -20,6 +20,11 @@ const setLanguage = (lang) => {
     localStorage.setItem("appLanguage", lang);
 };
 
+const isAuthenticated = computed(() => {
+    console.log(localStorage.getItem("token"));
+    return localStorage.getItem("token") !== null;
+});
+
 </script>
 
 <template>
@@ -44,11 +49,14 @@ const setLanguage = (lang) => {
                     <li class="nav-item">
                         <router-link to="/" class="nav-link" :class="{ active: route.path === '/' }">{{ $t("home") }}</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!isAuthenticated">
                         <router-link to="/login" class="nav-link" :class="{ active: route.path === '/login' }">{{ $t("login.login") }}</router-link>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!isAuthenticated">
                         <router-link to="/register" class="nav-link" :class="{ active: route.path === '/register' }">{{ $t("register.register") }}</router-link>
+                    </li>
+                    <li class="nav-item" v-if="isAuthenticated">
+                        <router-link to="/logout" class="nav-link" :class="{ active: route.path === '/logout' }">{{ $t("logout") }}</router-link>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">

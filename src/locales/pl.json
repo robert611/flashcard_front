@@ -13,9 +13,10 @@
         "register": "Zarejestruj się",
         "name": "Nazwa użytkownika",
         "email": "Email",
-        "password": "Password",
+        "password": "Hasło",
         "name_placeholder": "Podaj nazwę użytkownika",
         "email_placeholder": "Podaj adres email",
         "password_placeholder": "Podaj hasło"
-    }
+    },
+    "logout": "Wyloguj się"
 }
