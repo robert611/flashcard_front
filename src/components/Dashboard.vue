@@ -1,4 +1,7 @@
 <script setup>
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+
 defineProps({
   msg: {
     type: String,
@@ -6,6 +9,19 @@ defineProps({
   },
 })
 
+const flashcards = ref([]);
+
+const fetchFlashcards = async () => {
+  try {
+    const response = await axios.get('http://localhost:8050/api/flashcards');
+    console.log('Dane z API:', response.data);
+    flashcards.value = response.data;
+  } catch (error) {
+    console.error('Błąd pobierania danych:', error);
+  }
+};
+
+onMounted(fetchFlashcards);
 
 </script>
 
