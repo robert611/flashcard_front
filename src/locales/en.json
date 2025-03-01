@@ -5,7 +5,9 @@
     "login": {
         "login": "Login",
         "email": "Email",
-        "password": "Password"
+        "password": "Password",
+        "email_placeholder": "Enter your email",
+        "password_placeholder": "Enter your password"
     },
     "register": {
         "register": "Register",
