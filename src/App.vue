@@ -1,7 +1,8 @@
 <script setup>
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import {computed} from "vue";
+import { useAuthStore } from '@/stores/auth'
+import { computed } from "vue";
 
 const route = useRoute();
 
@@ -20,10 +21,7 @@ const setLanguage = (lang) => {
     localStorage.setItem("appLanguage", lang);
 };
 
-const isAuthenticated = computed(() => {
-    console.log(localStorage.getItem("token"));
-    return localStorage.getItem("token") !== null;
-});
+const auth = useAuthStore();
 
 </script>
 
@@ -49,13 +47,13 @@ const isAuthenticated = computed(() => {
                     <li class="nav-item">
                         <router-link to="/" class="nav-link" :class="{ active: route.path === '/' }">{{ $t("home") }}</router-link>
                     </li>
-                    <li class="nav-item" v-if="!isAuthenticated">
+                    <li class="nav-item" v-if="!auth.isLoggedIn">
                         <router-link to="/login" class="nav-link" :class="{ active: route.path === '/login' }">{{ $t("login.login") }}</router-link>
                     </li>
-                    <li class="nav-item" v-if="!isAuthenticated">
+                    <li class="nav-item" v-if="!auth.isLoggedIn">
                         <router-link to="/register" class="nav-link" :class="{ active: route.path === '/register' }">{{ $t("register.register") }}</router-link>
                     </li>
-                    <li class="nav-item" v-if="isAuthenticated">
+                    <li class="nav-item" v-if="auth.isLoggedIn">
                         <router-link to="/logout" class="nav-link" :class="{ active: route.path === '/logout' }">{{ $t("logout") }}</router-link>
                     </li>
                     <li class="nav-item dropdown">

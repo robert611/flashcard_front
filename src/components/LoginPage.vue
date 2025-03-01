@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from "vue";
 import { login } from "@/services/authService";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const email = ref("");
 const password = ref("");
@@ -18,6 +21,8 @@ const handleLogin = async () => {
         });
         console.log(response);
         message.value = "✅ Login successful!";
+
+        await router.push({path: "/"});
     } catch (error) {
         console.log(error);
         message.value = "❌ Login failed! Check your credentials.";
